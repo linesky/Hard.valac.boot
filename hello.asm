@@ -1,4 +1,4 @@
-	.file	"hello.c"
+
 	.machine ppc
 	.section	".text"
 	.section	.rodata
@@ -102,6 +102,4 @@ main:
 	blr
 	.cfi_endproc
 .LFE7:
-	.size	main,.-main
-	.ident	"GCC: (Debian 10.2.1-6) 10.2.1 20210110"
-	.section	.note.GNU-stack,"",@progbits
+
