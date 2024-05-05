@@ -1,2 +1,5 @@
-# Hard.valac.boot
-Hard boot bin image builder 
+# power.pc.assembly
+
+assembly tutor for starts on power pc assembly
+
+
