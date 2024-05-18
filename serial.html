@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Counter: 0</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background-color: yellow;
+  }
+  canvas {
+    display: block;
+    background-color: yellow;
+  }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const gridSize = 32;
+  const cellSize = 12.5; // 400 / 32
+  let counter = 0;
+
+  canvas.width = gridSize * cellSize + cellSize;
+  canvas.height = gridSize * cellSize + cellSize;
+
+  function drawGrid() {
+    ctx.strokeStyle = 'black';
+    for (let i = 0; i <= gridSize; i++) {
+      ctx.beginPath();
+      ctx.moveTo(i * cellSize, 0);
+      ctx.lineTo(i * cellSize, gridSize * cellSize);
+      ctx.moveTo(0, i * cellSize);
+      ctx.lineTo(gridSize * cellSize, i * cellSize);
+      ctx.stroke();
+    }
+  }
+
+  function updateCounter() {
+    counter++;
+    document.title = `Counter: ${counter}`;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawGrid();
+
+    const x = counter % gridSize;
+    const y = Math.floor(counter / gridSize) % gridSize;
+
+    // Highlight x line
+    ctx.strokeStyle = 'red';
+    ctx.beginPath();
+    ctx.moveTo(x * cellSize + cellSize / 2, 0);
+    ctx.lineTo(x * cellSize + cellSize / 2, gridSize * cellSize);
+    ctx.stroke();
+
+    // Highlight y line
+    ctx.strokeStyle = 'blue';
+    ctx.beginPath();
+    ctx.moveTo(0, y * cellSize + cellSize / 2);
+    ctx.lineTo(gridSize * cellSize, y * cellSize + cellSize / 2);
+    ctx.stroke();
+
+    // Draw intersection ball
+    ctx.fillStyle = 'white';
+    ctx.beginPath();
+    ctx.arc(x * cellSize + cellSize / 2, y * cellSize + cellSize / 2, cellSize / 4, 0, 2 * Math.PI);
+    ctx.fill();
+
+    // Draw balls at the bottom and right
+    for (let i = 0; i < gridSize; i++) {
+      ctx.fillStyle = i === x ? 'blue' : 'red';
+      ctx.beginPath();
+      ctx.arc(i * cellSize + cellSize / 2, canvas.height - cellSize / 2, cellSize / 4, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.fillStyle = i === y ?  'red' :'blue';
+      ctx.beginPath();
+      ctx.arc(canvas.width - cellSize / 2, i * cellSize + cellSize / 2, cellSize / 4, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+  }
+
+  function update() {
+    updateCounter();
+    draw();
+  }
+
+  setInterval(update, 200);
+</script>
+</body>
+</html>
