@@ -1,5 +1,6 @@
-# serial.time.window
+# distro.puppy.pcc
 
-serial time windows interval time window serial array
+
+portable c compiler elf to puppy os
 
 
